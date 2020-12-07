@@ -1,6 +1,85 @@
-# Jamulus Server Remote
-A web-based remote for Jamulus server. No frills, supersimple.
+# Jamulus Server Remote - 0.1
+A light-weight web-based interface for Jamulus server when installed on a Linux system. No frills, supersimple.
 
-Jamulus Server Remote allows to start and stop recordings, and at the end zip them to be downloaded via the Web. 
+Jamulus Server Remote allows to start and stop recordings, and at the end zip them to be downloaded via the Web. While in principle it can be installed on any Linux distribution, at the moent it has been tested on Ubuntu 18.04 installed on an AWS EC2 machine only. 
+
+**Warning:** Jamulus Server Remote has not yet been thoroughly examined for security issues, thus use it at your own risk, in particular if on a server running continuously.  
+
+## Prerequisites
+Jamulus should be installed according to official [instructions](https://jamulus.io/wiki/Server-Linux) (using the installscript included in the `distributions` folder is perfectly okay), set as systemd service, and with the suggested additional services for beginning and toggling recording. 
+The server must be started with the recording directory set to a directory accessible to apache (e.g., `-R /var/www/html/recordings`) and the `--norecord` option, to initially disable recording. Having the recording directory in the same directory of the PHP scripts makes things simpler.
+
+## Installation
+In addition to Jamulus, Apache, PHP, and the zip software are necessary:
+
+`sudo apt-get install apache2 php libapache2-mod-php zip`
+
+**Warning:** To be safe, Apache has to be set on https only. 
+
+Download the code from this repository; the web-based interface itself is only including 3 files. Move the 3 files in the `/var/www/html` directory (or similar place in other distributions). 
+
+## Extending privileges
+This is the tricky part. You have to give privileges to Apache for running service as sudo with the visudo command:
+`sudo visudo`
+and then add the following line at the bottom:
+`www-data  ALL=(ALL)NOPASSWD: /usr/sbin/service`
+
+**Warning:**: this should be restricted further by indicating the full command + parameters.
+
+The recording dir should be served by apache (although not needed if only the zip is given).
+Since files are written by the user `jamulus:nogroup`, and then could not be deleted by `www-data` (the user under which Apache+PHP does the job), set gid to give www-data as group to any subfolder/file: 
+
+`mkdir /var/www/html/recording`
+
+`sudo chown www-data recording/`
+
+`sudo chgrp www-data recording/`
+
+`sudo chmod g+s recording/`
+
+`sudo setfacl -d -m g::rwx recording`
+
+## Configuration 
+
+In principle, the `config.php` (under `/var/www/html`) is the only place where to put hands: password, paths, and also the real shell commands to allow for personalization. Change the following values according to your local configuration or taste:
+
+This is at your taste: server, band name, your cat name...:
+`$SERVERNAME="Your band name";`
+
+Please change it:
+`$PASSWORD= "******";`
+
+This is the recording directory set also in the Jamulus parameters:
+`$RECORDINGS="/var/www/html/recording/";`
+
+... and this is the same position, but to be used as URL (in this case, relative to the scripts):
+`$RECURL="recording/";`
+
+If you set this one to true, in the Session box you can see some extra output, which can help in debugging:
+`$DEBUG=false;`
+
+Commands may need personalization e.g., if the names of your start/stop services are different. Here the examples come from Jamulus instructions:
+` "toggle" => "sudo service jamulusTogglerec  start `
+
+` "newrec" => "sudo service newRecording start ,`
+
+` "compress" => "rm session.zip; zip -r session.zip $RECORDINGS/Jam* ",`
+
+` "compressday" => "rm $today.zip; zip -r $today.zip $RECORDINGS"."Jam-$today-* ", `
+
+` "cleanup" => "rm -fr $RECORDINGS/Jam* ",`
+
+` "listrec" => "du -sh $RECORDINGS/* ",`
+
+## Instructions
+Access to the commands is protected by the password you set in the configuration file. Musicians, at present, may directly access the recordings (however this may change).
+
+At each first access, the interface expects Jamulus to have *recording disabled*. Thus the "toggle on/off" button is off, and the "Start new" is disabled. This also means that just one admin at a time must access the interface, to avoid mishaps. Then, the toggle button activate/disactivate recording, the Start new button start a new recording. 
+
+At the end of each execution, buttons trigger a refresh of the Sessions textarea, where recordings are shown with their size. However, you may also reload to update the size of the last recording. 
+
+At the end, you can zip all the sessions, or just those of the current day. Cleanup deletes all sessions, so be careful. 
+
+
 
 
