@@ -21,10 +21,13 @@ Download the code from this repository; the web-based interface itself is only i
 ## Extending privileges
 This is the tricky part. You have to give privileges to Apache for running service as sudo with the visudo command:
 `sudo visudo`
-and then add the following line at the bottom:
-`www-data  ALL=(ALL)NOPASSWD: /usr/sbin/service`
+and then add the following lines at the bottom:
 
-**Warning:**: this should be restricted further by indicating the full command + parameters.
+`www-data  ALL=(ALL)NOPASSWD: /usr/sbin/service startstop-jamulus  start`
+
+`www-data  ALL=(ALL)NOPASSWD: /usr/sbin/service newrec-jamulus start`
+
+
 
 The recording dir should be served by apache (although not needed if only the zip is given).
 Since files are written by the user `jamulus:nogroup`, and then could not be deleted by `www-data` (the user under which Apache+PHP does the job), set gid to give www-data as group to any subfolder/file: 
