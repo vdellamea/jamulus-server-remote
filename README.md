@@ -44,21 +44,27 @@ Since files are written by the user `jamulus:nogroup`, and then could not be del
 In principle, the `config.php` (under `/var/www/html`) is the only place where to put hands: password, paths, and also the real shell commands to allow for personalization. Change the following values according to your local configuration or taste:
 
 This is at your taste: server, band name, your cat name...:
+
 `$SERVERNAME="Your band name";`
 
 Please change it:
+
 `$PASSWORD= "******";`
 
 This is the recording directory set also in the Jamulus parameters:
+
 `$RECORDINGS="/var/www/html/recording/";`
 
 ... and this is the same position, but to be used as URL (in this case, relative to the scripts):
+
 `$RECURL="recording/";`
 
 If you set this one to true, in the Session box you can see some extra output, which can help in debugging:
+
 `$DEBUG=false;`
 
 Commands may need personalization e.g., if the names of your start/stop services are different. Here the examples come from Jamulus instructions:
+
 ` "toggle" => "sudo service jamulusTogglerec  start `
 
 ` "newrec" => "sudo service newRecording start ,`
