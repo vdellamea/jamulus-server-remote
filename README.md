@@ -58,11 +58,11 @@ If you set this one to true, in the Session box you can see some extra output, w
 
 `$DEBUG=false;`
 
-Commands may need personalization e.g., if the names of your start/stop services are different. Here the examples come from Jamulus instructions:
+Commands may need personalization e.g., if the names of your start/stop services are different. Here the examples:
 
-` "toggle" => "sudo service jamulus-start-stop  start `
+` "toggle" => "sudo service jamulus-start-stop  start ",`
 
-` "newrec" => "sudo service jamulus-new start ,`
+` "newrec" => "sudo service jamulus-new start ",`
 
 ` "compress" => "rm session.zip; zip -r session.zip $RECORDINGS/Jam* ",`
 
@@ -79,7 +79,7 @@ At each first access, the interface expects Jamulus to have *recording disabled*
 
 At the end of each execution, buttons trigger a refresh of the Sessions textarea, where recordings are shown with their size. However, you may also reload to update the size of the last recording. 
 
-At the end, you can zip all the sessions, or just those of the current day. Cleanup deletes all sessions, so be careful. 
+At the end, you can zip all the sessions (as `session.zip` file), or just those of the current day (as `YYYYMMDD.zip` file). Cleanup deletes all sessions, so be careful. 
 
 
 
