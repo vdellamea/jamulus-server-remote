@@ -19,16 +19,18 @@ Other install scripts can be found here: https://github.com/corrados/jamulus/tre
 
 The rest of this README refers to Ubuntu.
 
-## Installation
-In addition to Jamulus, Apache, PHP, and the zip software are necessary:
+## Quick install
+Be sure to have zip:
 
-`sudo apt-get install apache2 php libapache2-mod-php zip`
+`sudo apt-get install zip`
 
-**Warning:** To be safe, Apache has to be set on https only. 
+Download the code, unzip it, `cd` to the unzipped directory.
 
 Run the `install-service.sh` script to install and start Jamulus as systemd service, as well as the two services needed for toggling recording and starting a new one. 
 
 The run the `install-remote.sh` script to install the web-based remote. With a browser, go to the server address (IP or domain), and you will find the interface; enter the password you have set in the configuration.
+
+**Warning:** To be safe, Apache has to be set on https only. 
 
 
 
