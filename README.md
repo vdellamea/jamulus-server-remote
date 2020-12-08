@@ -3,7 +3,7 @@ A light-weight web-based interface for Jamulus server when installed on a Linux 
 
 Jamulus Server Remote allows to start and stop recordings, and at the end zip them to be downloaded via the Web. While in principle it can be installed on any Linux distribution, at the moent it has been tested on Ubuntu 18.04 installed on an AWS EC2 machine only. 
 
-**Warning:** Jamulus Server Remote has not yet been thoroughly examined for security issues, thus use it at your own risk, in particular if on a server running continuously.  
+**Warning:** Jamulus Server Remote has not yet been thoroughly examined for security issues, thus use it at your own risk, in particular if on a server running continuously. In particular, to be safe, Apache has to be set on https only. 
 
 ## Prerequisites
 Jamulus should be installed according to official [instructions](https://jamulus.io/wiki/Server-Linux) (using the installscript included in the `distributions` folder is perfectly okay), set as systemd service, and with the suggested additional services for beginning and toggling recording. 
@@ -29,8 +29,6 @@ Download the code, unzip it, `cd` to the unzipped directory.
 Run the `install-service.sh` script to install and start Jamulus as systemd service, as well as the two services needed for toggling recording and starting a new one. 
 
 Then run the `install-remote.sh` script to install the web-based remote. With a browser, go to the server address (IP or domain), and you will find the interface; enter the password you have set in the configuration.
-
-**Warning:** To be safe, Apache has to be set on https only. 
 
 
 
