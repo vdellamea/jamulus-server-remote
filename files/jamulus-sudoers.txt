@@ -1,0 +1,5 @@
+www-data ALL=(ALL)NOPASSWD: /bin/systemctl start jamulus-start-stop
+www-data ALL=(ALL)NOPASSWD: /bin/systemctl start jamulus-new
+
+
+

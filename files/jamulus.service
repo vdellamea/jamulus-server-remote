@@ -1,0 +1,28 @@
+[Unit]
+Description=Jamulus-Server
+After=network.target
+
+[Service]
+Type=simple
+User=jamulus
+Group=www-data
+UMask=0002
+NoNewPrivileges=true
+ProtectSystem=true
+ProtectHome=true
+Nice=-20
+IOSchedulingClass=realtime
+IOSchedulingPriority=0
+
+#### Change this to set genre, location and other parameters.
+#### See [Command-Line-Options](Command-Line-Options) ####
+ExecStart=/usr/local/bin/Jamulus -s -F -d -n -T -w "Musica Permanente" --norecord -R "/var/www/html/recording"
+
+Restart=on-failure
+RestartSec=30
+StandardOutput=journal
+StandardError=inherit
+SyslogIdentifier=jamulus
+
+[Install]
+WantedBy=multi-user.target
