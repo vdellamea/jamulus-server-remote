@@ -9,6 +9,15 @@ Jamulus Server Remote allows to start and stop recordings, and at the end zip th
 Jamulus should be installed according to official [instructions](https://jamulus.io/wiki/Server-Linux) (using the installscript included in the `distributions` folder is perfectly okay), set as systemd service, and with the suggested additional services for beginning and toggling recording. 
 The server must be started with the recording directory set to a directory accessible to apache (e.g., `-R /var/www/html/recordings`) and the `--norecord` option, to initially disable recording. Having the recording directory in the same directory of the PHP scripts makes things simpler.
 
+If you do not have already installed Jamulus server, you may quickly do it as follows (for Ubuntu):
+
+`wget https://raw.githubusercontent.com/corrados/jamulus/master/distributions/installscripts/install4ubuntu.sh`
+
+`sh install4ubuntu.sh`
+
+Other install scripts can be found here: https://github.com/corrados/jamulus/tree/master/distributions
+
+
 ## Installation
 In addition to Jamulus, Apache, PHP, and the zip software are necessary:
 
