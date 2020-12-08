@@ -42,7 +42,7 @@ This is at your taste: server, band name, your cat name...:
 
 `$SERVERNAME="Your band name";`
 
-Please change it:
+Please change the password:
 
 `$PASSWORD= "******";`
 
