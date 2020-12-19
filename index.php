@@ -1,13 +1,15 @@
 <?php
 // Jamulus Server Remote
-// v0.1 - 20201206
+// v0.3 - 20201219
 // Vincenzo Della Mea
 
 // INTERFACE
 session_start();
-
+if(isset($_POST['logout'])) {
+	$_SESSION = array();
+	session_destroy();
+}
 include("config.php");
-
 ?>
 <!doctype html>
 
@@ -38,10 +40,10 @@ include("config.php");
 <?php
 print("<h1>$SERVERNAME</h1>\n");
 if(
-	(isset($_SESSION['me'])&& ($_SESSION['me']==$PASSWORD)) ||
-	(isset($_POST['pwd'])&& ($_POST['pwd']==$PASSWORD))
+	(isset($_SESSION['admin'])&& ($_SESSION['admin']==$ADMINPASSWORD)) ||
+	(isset($_POST['apwd'])&& ($_POST['apwd']==$ADMINPASSWORD))
 	) {
-		$_SESSION['me']=$PASSWORD;
+		$_SESSION['admin']=$ADMINPASSWORD;
 ?>
     
 <h3>Recording</h3>  
@@ -77,9 +79,8 @@ if(
 	style="background-color: navy"
 	onclick="sendcommand('cleanup',this)">Cleanup</button>
 </p>
-<p><a href="session.zip">Zipped everything</a>  
-<a href="<?php echo date("Ymd") ?>.zip">Today's zip</a>  
-<a href="<?php echo $RECURL ?>">All files</a>
+<p><a href="download.php?what=all">Zipped everything</a> 
+<a href="download.php?what=today">Today's zip</a>  
 </p>
 
 <script>
@@ -139,16 +140,31 @@ function sendcommand(command, btn){
 
 <?php
 }
-else if(!isset($_POST['pwd'])){
+else 
+if(
+        (isset($_SESSION['musician'])&& ($_SESSION['musician']==$MUSICIANPASSWORD)) ||
+        (isset($_POST['mpwd'])&& ($_POST['mpwd']==$MUSICIANPASSWORD))
+        ) {
+                $_SESSION['musician']=$MUSICIANPASSWORD;
+                unset($_SESSION['admin']);
+		
+?>
+<h3>Files</h3>
+<p><a href="download.php?what=all">Zipped everything</a> 
+<a href="download.php?what=today">Today's zip</a>  
+</p>
+<?php
+}
+else {
 ?>
 <h3>Musicians</h3>
-<p><a href="session.zip">Zipped everything</a> 
-<a href="<?php echo date("Ymd") ?>.zip">Today's zip</a>  
-<a href="<?php echo $RECURL ?>">All files</a>
+<form action="index.php" method="post">
+<input type="password" name="mpwd" />
+<input type="submit" name="login" value="login" />
 </p>
 <h3>Admin</h3>
 <form action="index.php" method="post">
-<input type="password" name="pwd" />
+<input type="password" name="apwd" />
 <input type="submit" name="login" value="login" />
 </form>
 
@@ -157,8 +173,12 @@ else if(!isset($_POST['pwd'])){
 
 ?>
 <hr />
+
+<form action="index.php" method="post">
+<input type="submit" name="logout" value="logout" />
+</form>
 <address>
-VDM 2020
+	<a href="https://github.com/vdellamea/jamulus-server-remote/">Jamulus Server Remote</a>
 </address>
   </body>
 </html>
