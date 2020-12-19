@@ -1,5 +1,2 @@
-www-data ALL=(ALL)NOPASSWD: /bin/systemctl start jamulus-start-stop
-www-data ALL=(ALL)NOPASSWD: /bin/systemctl start jamulus-new
-
-
-
+www-data ALL=(ALL)NOPASSWD: /bin/systemctl kill -s SIGUSR1 jamulus
+www-data ALL=(ALL)NOPASSWD: /bin/systemctl kill -s SIGUSR2 jamulus
