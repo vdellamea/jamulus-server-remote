@@ -43,6 +43,7 @@ This is at your taste: server, band name, your cat name...:
 Please change the passwords:
 
 `$ADMINPASSWORD= "******";`
+
 `$MUSICIANSPASSWORD= "******";`
 
 
@@ -57,12 +58,17 @@ If you set this one to true, in the Session box you can see some extra output, w
 
 Commands may need personalization if you want to adapt the scripts to an already existing installation. Here the examples:
 
- "toggle" => "sudo /bin/systemctl kill -s SIGUSR2 jamulus ",
- "newrec" => "sudo /bin/systemctl kill -s SIGUSR1 jamulus ",
- "compress" => "cd $RECORDINGS ; rm session.zip; zip -r session.zip Jam* ",
- "compressday" => "cd $RECORDINGS ; rm $today.zip; zip -r $today.zip Jam-$today-* ", 
- "cleanup" => "rm -fr $RECORDINGS/Jam* ",
- "listrec" => "du -sh $RECORDINGS/Jam* ",
+ `"toggle" => "sudo /bin/systemctl kill -s SIGUSR2 jamulus ",`
+ 
+ `"newrec" => "sudo /bin/systemctl kill -s SIGUSR1 jamulus ",`
+ 
+ `"compress" => "cd $RECORDINGS ; rm session.zip; zip -r session.zip Jam* ",`
+ 
+ `"compressday" => "cd $RECORDINGS ; rm $today.zip; zip -r $today.zip Jam-$today-* ", `
+ 
+ `"cleanup" => "rm -fr $RECORDINGS/Jam* ",`
+ 
+ `"listrec" => "du -sh $RECORDINGS/Jam* ",`
 
 
 ## Instructions
