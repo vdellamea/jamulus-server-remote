@@ -1,18 +1,20 @@
 <?php
 // Jamulus Server Remote
-// v0.1 - 20201206
+// v0.3 - 20201219
 // Vincenzo Della Mea
 
 // REMOTE WEB SERVICE
+
 session_start();
 
 include("config.php");
 $stderr=""; 
 if($DEBUG) {
 	print_r($_POST);
+	print_r($_SESSION);
 	$stderr=" 2>&1";
 	}
-if(isset($_SESSION['me'])&& ($_SESSION['me']==$PASSWORD)) {
+if(isset($_SESSION['admin'])&& ($_SESSION['admin']==$ADMINPASSWORD)) {
 	if($DEBUG) print_r($_SESSION);
 	if(!isset($_POST['exec'])) die("No, thanks.");
 	$out=array();
@@ -26,9 +28,9 @@ if(isset($_SESSION['me'])&& ($_SESSION['me']==$PASSWORD)) {
 	case 'compress': 
 		exec($COMMANDS['compress'].$stderr,$out,$ret);
 		break;
-    case 'compressday': 
-        exec($COMMANDS['compressday'].$stderr,$out,$ret);
-        break;
+    	case 'compressday': 
+       	 	exec($COMMANDS['compressday'].$stderr,$out,$ret);
+        	break;
 	case 'cleanup': 
 		exec($COMMANDS['cleanup'].$stderr,$out,$ret);
 		break;
@@ -40,7 +42,7 @@ if(isset($_SESSION['me'])&& ($_SESSION['me']==$PASSWORD)) {
 	if($DEBUG) {print_r($ret);print("\n");print_r($out);}
 
 	//every command will return the recording directory content
-	exec("du -sh  $RECORDINGS/*",$list);
+	exec("du -sh  $RECORDINGS/Jam*",$list);
 	foreach($list as $line) { 
 		$tmp=explode("\t",str_replace($RECORDINGS."/","",$line));
 		print($tmp[1]."\t".$tmp[0]."\n");
