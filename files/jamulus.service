@@ -9,14 +9,14 @@ Group=www-data
 UMask=0002
 NoNewPrivileges=true
 ProtectSystem=true
-ProtectHome=true
+ProtectHome=false
 Nice=-20
 IOSchedulingClass=realtime
 IOSchedulingPriority=0
 
 #### Change this to set genre, location and other parameters.
 #### See [Command-Line-Options](Command-Line-Options) ####
-ExecStart=/usr/local/bin/Jamulus -s -F -d -n -T -w "Musica Permanente" --norecord -R "/var/www/html/recording"
+ExecStart=/usr/local/bin/Jamulus -s -F -d -n -T -w "Your message" --norecord -R "/home/jamulus/recording"
 
 Restart=on-failure
 RestartSec=30
