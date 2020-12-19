@@ -1,4 +1,4 @@
-# Jamulus Server Remote - 0.1
+# Jamulus Server Remote - 0.3 (2020-12-29)
 A light-weight web-based interface for Jamulus server when installed on a Linux system. No frills, supersimple.
 
 Jamulus Server Remote allows to start and stop recordings, and at the end zip them to be downloaded via the Web. While in principle it can be installed on any Linux distribution, at the moent it has been tested on Ubuntu 18.04 installed on an AWS EC2 machine only. 
@@ -40,56 +40,56 @@ This is at your taste: server, band name, your cat name...:
 
 `$SERVERNAME="Your band name";`
 
-Please change the password:
+Please change the passwords:
 
-`$PASSWORD= "******";`
+`$ADMINPASSWORD= "******";`
+`$MUSICIANSPASSWORD= "******";`
 
-This is the recording directory set also in the Jamulus parameters:
+
+This is the recording directory set also in the Jamulus parameters and in the `jamulus.service` file:
 
 `$RECORDINGS="/var/www/html/recording/";`
 
-... and this is the same position, but to be used as URL (in this case, relative to the scripts):
-
-`$RECURL="recording/";`
 
 If you set this one to true, in the Session box you can see some extra output, which can help in debugging:
 
 `$DEBUG=false;`
 
-Commands may need personalization e.g., if the names of your start/stop services are different. Here the examples:
+Commands may need personalization if you want to adapt the scripts to an already existing installation. Here the examples:
 
-` "toggle" => "sudo service jamulus-start-stop  start ",`
+ "toggle" => "sudo /bin/systemctl kill -s SIGUSR2 jamulus ",
+ "newrec" => "sudo /bin/systemctl kill -s SIGUSR1 jamulus ",
+ "compress" => "cd $RECORDINGS ; rm session.zip; zip -r session.zip Jam* ",
+ "compressday" => "cd $RECORDINGS ; rm $today.zip; zip -r $today.zip Jam-$today-* ", 
+ "cleanup" => "rm -fr $RECORDINGS/Jam* ",
+ "listrec" => "du -sh $RECORDINGS/Jam* ",
 
-` "newrec" => "sudo service jamulus-new start ",`
-
-` "compress" => "rm session.zip; zip -r session.zip $RECORDINGS/Jam* ",`
-
-` "compressday" => "rm $today.zip; zip -r $today.zip $RECORDINGS"."Jam-$today-* ", `
-
-` "cleanup" => "rm -fr $RECORDINGS/Jam* ",`
-
-` "listrec" => "du -sh $RECORDINGS/* ",`
 
 ## Instructions
-Access to the commands is protected by the password you set in the configuration file. Musicians, at present, may directly access the recordings (however this may change).
+Access to the commands is protected by the password you set in the configuration file. Musicians too need to enter a password to access zipped files.
 
 At each first access, the interface expects Jamulus to have *recording disabled*. Thus the "toggle on/off" button is off, and the "Start new" is disabled. This also means that just one admin at a time must access the interface, to avoid mishaps. Then, the toggle button activate/disactivate recording, the Start new button start a new recording. 
 
 At the end of each execution, buttons trigger a refresh of the Sessions textarea, where recordings are shown with their size. However, you may also reload to update the size of the last recording. 
 
-At the end, you can zip all the sessions (as `session.zip` file), or just those of the current day (as `YYYYMMDD.zip` file). Cleanup deletes all sessions, so be careful. 
+At the end, you can zip all the sessions (as `session.zip` file), or just those of the current day (as `YYYYMMDD.zip` file). Cleanup deletes all sessions, so be careful. It does not delete compressed archives. 
 
-
-
+ *No need to check the rest if you installed from scratch as described above.*
+ 
 ## Details
 The following description is aimed at explaining what the installation script does, and it can be useful for those that want to install the interface on an already running server, or on a different distribution, or for any other reason.
 
-Download the code from this repository; the web-based interface itself is only including 3 files. Move the 3 files in the `/var/www/html` directory (or similar place in other distributions). 
+Download the code from this repository; the web-based interface itself is only including 4 files. Move the 3 files in the `/var/www/html` directory (or similar place in other distributions). 
+
+### The service 
+The service file now allows for writing in the home directory of the user, which is created when creating the user. However, this is not mandatory.
 
 ### Extending privileges
-This is the tricky part. You have to give privileges to Apache for running service as sudo with the visudo command:
+This is the tricky part. You have to give privileges to Apache for running commands as `sudo` by modifying the `sudoers` file or, better, adding a file in `sudoers.d`. However, any mistake in doing this may result in loosing sudo privileges, thus use exclusively the `sudo visudo` command if you have to modify something, because it does syntax checks. E.g.:
+
 `sudo visudo -f /etc/sudoers.d/jamulus`
-and then add the following lines:
+
+and then add lines like these for each command you want to give sudo privileges to www-data:
 
 `www-data  ALL=(ALL)NOPASSWD: /usr/sbin/service startstop-jamulus  start`
 
@@ -100,16 +100,16 @@ Followed but one or two newline.
 Be very careful. `visudo` does syntax checking and avoids mistakes, but if you use a different editor and make a mistake, all sudo privileges become locked.
 
 The recording dir should be served by apache (although not needed if only the zip is given).
-Since files are written by the user `jamulus:nogroup`, and then could not be deleted by `www-data` (the user under which Apache+PHP does the job), set gid to give www-data as group to any subfolder/file: 
+Since files are written by the user `jamulus`, and then could not be deleted by `www-data` (the user under which Apache+PHP does the job), set gid to give www-data as group to any subfolder/file: 
 
-`mkdir /var/www/html/recording`
+`mkdir /home/jamulus/recording`
 
-`sudo chown www-data recording/`
+`sudo chown www-data /home/jamulus/recording/`
 
-`sudo chgrp www-data recording/`
+`sudo chgrp www-data /home/jamulus/recording/`
 
-`sudo chmod g+s recording/`
+`sudo chmod g+s /home/jamulus/recording/`
 
-`sudo setfacl -d -m g::rwx recording`
+`sudo setfacl -d -m g::rwx /home/jamulus/recording/`
 
 
