@@ -71,14 +71,14 @@ Commands may need personalization if you want to adapt the scripts to an already
  `"listrec" => "du -sh $RECORDINGS/Jam* ",`
 
 
-## Instructions
+## Usage
 Access to the commands is protected by the password you set in the configuration file. Musicians too need to enter a password to access zipped files.
 
 At each first access, the interface expects Jamulus to have *recording disabled*. Thus the "toggle on/off" button is off, and the "Start new" is disabled. This also means that just one admin at a time must access the interface, to avoid mishaps. Then, the toggle button activate/disactivate recording, the Start new button start a new recording. 
 
 At the end of each execution, buttons trigger a refresh of the Sessions textarea, where recordings are shown with their size. However, you may also reload to update the size of the last recording. 
 
-At the end, you can zip all the sessions (as `session.zip` file), or just those of the current day (as `YYYYMMDD.zip` file). Cleanup deletes all sessions, so be careful. It does not delete compressed archives. 
+At the end, you can zip all the sessions (as `session.zip` file), or just those of the current day (as `YYYYMMDD.zip` file). Cleanup deletes all sessions, so be careful. It does not delete compressed archives (yet). 
 
  *No need to check the rest if you installed from scratch as described above.*
  
