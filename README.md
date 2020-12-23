@@ -79,7 +79,7 @@ At each first access, the interface expects Jamulus to have *recording disabled*
 
 At the end of each execution, buttons trigger a refresh of the Sessions textarea, where recordings are shown with their size. However, you may also reload to update the size of the last recording. 
 
-At the end, you can zip all the sessions (as `session.zip` file), or just those of the current day (as `YYYYMMDD.zip` file). Cleanup deletes all sessions, so be careful. It does not delete compressed archives (yet). 
+At the end, you can zip all the sessions (as `session.zip` file), or just those of the current day (as `YYYYMMDD.zip` file). Cleanup deletes all sessions, so be careful. Depending on how you set the `cleanup` command in `config.php`, it deletes or it does not delete the compressed archives. 
 
  *No need to check the rest if you installed from scratch as described above.*
  
