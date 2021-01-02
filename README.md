@@ -3,7 +3,7 @@ A light-weight web-based interface for Jamulus headless server when installed on
 
 Jamulus Server Remote allows to start and stop recordings, and at the end zip them to be downloaded via the Web. While in principle it can be installed on any Linux distribution, at the moent it has been tested on Ubuntu 18.04 installed on an AWS EC2 machine only. If you have to create a new server on AWS, just follow the instructions below and will be very easy.
 
-**Warning:** 
+**Warning: use it at your own risk** 
 *Jamulus Server Remote has not yet been thoroughly examined for security issues, thus use it at your own risk, in particular if on a server running continuously. In particular, to be safe, Apache has to be set on https only.*
 
 ## Prerequisites
