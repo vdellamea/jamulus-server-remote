@@ -9,8 +9,8 @@ sudo apt-get install zip
 wget https://github.com/vdellamea/jamulus-server-remote/archive/main.zip
 unzip main.zip
 cd jamulus-server-remote-main
-install-service.sh
-install-remote.sh
+sh install-service.sh
+sh install-remote.sh
 ```
 
 After this, the system is already up and running: you can reach it via `http://your.ip.address` where the IP address is the same you use to connect via Jamulus. 
