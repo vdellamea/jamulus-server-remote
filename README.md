@@ -25,7 +25,17 @@ Be sure to have zip:
 
 `sudo apt-get install zip`
 
-Download the code, unzip it, `cd` to the unzipped directory.
+Download the code:
+
+`wget https://github.com/vdellamea/jamulus-server-remote/archive/main.zip`
+
+Unzip it:
+
+`unzip main.zip`
+
+enter the unzipped directory:
+
+`cd jamulus-server-remote-main`
 
 Run the `install-service.sh` script to install and start Jamulus as systemd service, as well as the two services needed for toggling recording and starting a new one. 
 
