@@ -4,12 +4,19 @@ You can just copy the following lines and paste them in the server shell:
 
 ```
 wget https://raw.githubusercontent.com/corrados/jamulus/master/distributions/installscripts/install4ubuntu.sh
+
 sh install4ubuntu.sh
+
 sudo apt-get install zip
+
 wget https://github.com/vdellamea/jamulus-server-remote/archive/main.zip
+
 unzip main.zip
+
 cd jamulus-server-remote-main
+
 sh install-service.sh
+
 sh install-remote.sh
 ```
 
