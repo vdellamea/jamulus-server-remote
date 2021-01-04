@@ -115,9 +115,9 @@ This is the tricky part. You have to give privileges to Apache for running comma
 
 and then add lines like these for each command you want to give sudo privileges to www-data:
 
-`www-data  ALL=(ALL)NOPASSWD: /usr/sbin/service startstop-jamulus  start`
+`www-data ALL=(ALL)NOPASSWD: /bin/systemctl kill -s SIGUSR1 jamulus`
 
-`www-data  ALL=(ALL)NOPASSWD: /usr/sbin/service newrec-jamulus start`
+`www-data ALL=(ALL)NOPASSWD: /bin/systemctl kill -s SIGUSR2 jamulus`
 
 Followed but one or two newline.
 
