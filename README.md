@@ -22,7 +22,9 @@ The rest of this README refers to Ubuntu, but it should be easily adaptable to o
 
 ## Quick install
 
-The below commands are also summarized in https://github.com/vdellamea/jamulus-server-remote/blob/main/QUICK-INSTALL.md for super-quick installation on Ubuntu 18.04.
+**If you have a personalised install of Jamulus already running, do not follow these instructions, but read the details at the bottom to adapt the system to your local needs.**
+
+The below commands are also summarized in https://github.com/vdellamea/jamulus-server-remote/blob/main/QUICK-INSTALL.md for super-quick installation **on a fresh installation** on Ubuntu 18.04.
 
 Be sure to have zip:
 
