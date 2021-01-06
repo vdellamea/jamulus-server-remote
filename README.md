@@ -42,7 +42,7 @@ enter the unzipped directory:
 
 `cd jamulus-server-remote-main`
 
-Run the `install-service.sh` script to install and start Jamulus as systemd service, as well as the two services needed for toggling recording and starting a new one. 
+Run the `install-service.sh` script to install and start Jamulus as systemd service, as well as the two services needed for toggling recording and starting a new one. If you already have a service installed, please do not run the script, but look at it and run only the commands needed to adapt to your system.
 
 Then run the `install-remote.sh` script to install the web-based remote. With a browser, go to the server address (IP or domain), and you will find the interface; enter the password you have set in the configuration.
 
