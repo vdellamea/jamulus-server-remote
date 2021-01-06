@@ -100,13 +100,13 @@ At the end, you can zip all the sessions (as `session.zip` file), or just those 
 
  *No need to check the rest if you installed from scratch as described above.*
  
-## Details
+## Details for adapting to an already installed service
 The following description is aimed at explaining what the installation script does, and it can be useful for those that want to install the interface on an already running server, or on a different distribution, or for any other reason.
 
-Download the code from this repository; the web-based interface itself is only including 4 files. Move the 3 files in the `/var/www/html` directory (or similar place in other distributions). 
+Download the code from this repository; the web-based interface itself is only including 4 files. Move the 4 files in the `/var/www/html` directory (or similar place in other distributions). 
 
 ### The service 
-The service file now allows for writing in the home directory of the user, which is created when creating the user. However, this is not mandatory.
+The service file now allows for writing in the home directory of the user, which is created when creating the user. However, this is not mandatory: if you installed everything according to official instructions, the jamulus user likely will not have a home directory. 
 
 ### Extending privileges
 This is the tricky part. You have to give privileges to Apache for running commands as `sudo` by modifying the `sudoers` file or, better, adding a file in `sudoers.d`. However, any mistake in doing this may result in loosing sudo privileges, thus use exclusively the `sudo visudo` command if you have to modify something, because it does syntax checks. E.g.:
@@ -123,7 +123,6 @@ Followed but one or two newline.
 
 Be very careful. `visudo` does syntax checking and avoids mistakes, but if you use a different editor and make a mistake, all sudo privileges become locked.
 
-The recording dir should be served by apache (although not needed if only the zip is given).
 Since files are written by the user `jamulus`, and then could not be deleted by `www-data` (the user under which Apache+PHP does the job), set gid to give www-data as group to any subfolder/file: 
 
 `mkdir /home/jamulus/recording`
@@ -136,4 +135,5 @@ Since files are written by the user `jamulus`, and then could not be deleted by 
 
 `sudo setfacl -d -m g::rwx /home/jamulus/recording/`
 
+In the above commands, you may substitute the `/home/jamulus/recording/` directory with your own. Remember to change it also in `config.php` and in `jamulus.service` (however, the latter might not be needed if you already set it up for your installation). 
 
