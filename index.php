@@ -60,7 +60,7 @@ if(
 <h3>Sessions
 <button type="button" id="reloadbutton" 
         style="background-color: navy"
-        onclick="sendcommand('listrec', this)">Reload</button>
+        onclick="sendcommand('listrec', this)">Refresh list</button>
 </h3>
 <p>
 <textarea id="log" cols="40" rows="12"></textarea>
