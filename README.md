@@ -1,4 +1,4 @@
-# Jamulus Recording Remote - 0.3 (2021-01-04)
+# Jamulus Recording Remote - 0.4 (2021-01-08)
 A light-weight web-based interface for Jamulus headless server when installed on a Linux system. No frills, supersimple.
 
 Jamulus Server Remote allows to start and stop recordings, and at the end zip them to be downloaded via the Web. While in principle it can be installed on any Linux distribution, at the moment it has been tested on Ubuntu 18.04 installed on an AWS EC2 machine only. If you have to create a new server on AWS, just follow the instructions below and will be very easy. Adapting a running system requires some adaptation (details in the Details section below). 
@@ -72,21 +72,6 @@ If you set this one to true, in the Session box you can see some extra output, w
 
 `$DEBUG=false;`
 
-Commands may need personalization if you want to adapt the scripts to an already existing installation. Here the examples:
-
- `"toggle" => "sudo /bin/systemctl kill -s SIGUSR2 jamulus ",`
- 
- `"newrec" => "sudo /bin/systemctl kill -s SIGUSR1 jamulus ",`
- 
- `"compress" => "cd $RECORDINGS ; rm session.zip; zip -r session.zip Jam* ",`
- 
- `"compressday" => "cd $RECORDINGS ; rm $today.zip; zip -r $today.zip Jam-$today-* ", `
- 
- `"cleanup" => "rm -fr $RECORDINGS/Jam* ",`
- 
- `"listrec" => "du -sh $RECORDINGS/Jam* ",`
-
-
 ## Usage
 Access to the commands is protected by the password you set in the configuration file. Musicians too need to enter a password to access zipped files.
 
@@ -98,7 +83,7 @@ At each first access, the interface expects Jamulus to have *recording disabled*
 
 At the end of each execution, buttons trigger a refresh of the Sessions textarea, where recordings are shown with their size. However, you may also reload to update the size of the last recording. 
 
-At the end, you can zip all the sessions (as `session.zip` file), or just those of the current day (as `YYYYMMDD.zip` file). Cleanup deletes all sessions, so be careful. Depending on how you set the `cleanup` command in `config.php`, it deletes or it does not delete the compressed archives. 
+At the end, you can zip all the sessions (as `session.zip` file), or just those of the current day (as `YYYYMMDD.zip` file). "Delete WAVs" deletes all sessions (the WAV files); "Delete ZIPs" deletes all ZIP files, so be careful. 
 
  *No need to check the rest if you installed from scratch as described above.*
  
@@ -106,6 +91,20 @@ At the end, you can zip all the sessions (as `session.zip` file), or just those 
 The following description is aimed at explaining what the installation script does, and it can be useful for those that want to install the interface on an already running server, or on a different distribution, or for any other reason.
 
 Download the code from this repository; the web-based interface itself is only including 4 files. Move the 4 files in the `/var/www/html` directory (or similar place in other distributions). 
+
+### The commands
+
+Commands may need personalization if you want to adapt the scripts to an already existing installation. Here the current commands you can find in `worker.php`:
+```php
+ "toggle" => "sudo /bin/systemctl kill -s SIGUSR2 jamulus ",
+ "newrec" => "sudo /bin/systemctl kill -s SIGUSR1 jamulus ",
+ "compress" => "cd $RECORDINGS ; rm session.zip; zip -r session.zip Jam* ",
+ "compressday" => "cd $RECORDINGS ; rm $today.zip; zip -r $today.zip Jam-$today-* ", 
+ "listrec" => "du -sh $RECORDINGS/Jam* ",
+ "freespace" => "df -h --output=avail $RECORDINGS ",
+ "delwav" => "rm -fr $RECORDINGS/Jam* ",
+ "delzip" => "rm -fr $RECORDINGS/*.zip ",
+```
 
 ### The service 
 The service file now allows for writing in the home directory of the user, which is created when creating the user. However, this is not mandatory: if you installed everything according to official instructions, the jamulus user likely will not have a home directory. 
