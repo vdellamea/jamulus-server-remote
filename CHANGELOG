@@ -1,0 +1,14 @@
+JAMULUS RECORDNG REMOTE
+
+0.4 (2021-01-08)
+- added y/n question to install-service.sh and install-remote.sh 
+- on index.php, added display of free memory on server
+- moved commands definition from config.php to worker.php
+
+0.3 (2021-01-04)
+- changed label of Reload button to "Refresh list"
+- corrections in instructions
+- new QUICK INSTALL guide
+
+0.3 (2020-12-29) 
+- Initial version
