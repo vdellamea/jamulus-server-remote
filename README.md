@@ -20,6 +20,27 @@ Other install scripts can be found here: https://github.com/corrados/jamulus/tre
 
 The rest of this README refers to Ubuntu, but it should be easily adaptable to other Linux platforms.
 
+## How to update from previous version
+
+You will need to re-enter passwords and server name, however from the next version this likely will not be needed.
+
+Download the code:
+
+`wget https://github.com/vdellamea/jamulus-server-remote/archive/main.zip`
+
+Unzip it:
+
+`unzip main.zip`
+
+enter the unzipped directory:
+
+`cd jamulus-server-remote-main`
+
+Copy the PHP files to the web directory:
+
+`sudo cp *.php /var/www/html/`
+
+
 ## Quick install
 
 **If you have a personalised install of Jamulus already running, do not follow these instructions, but read the details at the bottom to adapt the system to your local needs.**
