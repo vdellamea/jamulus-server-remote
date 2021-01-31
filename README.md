@@ -12,11 +12,11 @@ The server must be started with the recording directory set to a directory acces
 
 If you do not have already installed Jamulus server, you may quickly do it as follows (for Ubuntu):
 
-`wget https://raw.githubusercontent.com/corrados/jamulus/master/distributions/installscripts/install4ubuntu.sh`
+`wget https://raw.githubusercontent.com/jamulussoftware/jamulus/master/distributions/installscripts/install4ubuntu.sh`
 
 `sh install4ubuntu.sh`
 
-Other install scripts can be found here: https://github.com/corrados/jamulus/tree/master/distributions
+Other install scripts can be found here: https://github.com/jamulussoftware/jamulus/tree/master/distributions
 
 The rest of this README refers to Ubuntu, but it should be easily adaptable to other Linux platforms.
 
