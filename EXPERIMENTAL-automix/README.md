@@ -14,6 +14,7 @@ You can already test the system this way:
 - `php automix.php single /path/to/recordings/Jam-XXXXXXXX/` creates one mixed mp3 from the tracks of the Jam-XXXXXXXX section.
 - `php automix.php all /path/to/recordings/` creates one mixed mp3 from each session inside the recordings directory.
 
+Then, the rest is to enable the web-based interface to automix:
 
 - backup your current PHP files in /var/www/html: 
 ```
