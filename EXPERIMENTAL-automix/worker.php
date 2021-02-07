@@ -26,7 +26,7 @@ $COMMANDS=array(
  "zipmix" => "rm $RECORDINGS/mix-$today.zip; cd $MIX; zip $RECORDINGS/mix-$today.zip *.mp3 ; rm $MIX/*.mp3 ",
  "cleancons" => "rm $RECORDINGS/consolidated-$today.zip",	
  "zipcons1" => "cd $CONSOLIDATED; zip -r $RECORDINGS/consolidated-$today.zip Jam* ; rm -fr Jam* ",
-
+ "cleantmp" => "rm -fr /var/tmp/Jam-* ",
  );
 
 include("automix.php");
@@ -34,7 +34,7 @@ include("automix.php");
 $stderr=""; 
 if($DEBUG) {
 	print_r($_POST);
-print_r($_SESSION);
+	print_r($_SESSION);
 	$stderr=" 2>&1";
 	}
 if(isset($_SESSION['admin'])&& ($_SESSION['admin']==$ADMINPASSWORD)) {
@@ -69,6 +69,7 @@ if(isset($_SESSION['admin'])&& ($_SESSION['admin']==$ADMINPASSWORD)) {
 			mkdir($to);
 			consolidate_tracks($s,$to);	
 			$out=generate_mix($to);
+			exec($COMMANDS['cleantmp'].$stderr,$out,$ret);
 		}
 		exec($COMMANDS['zipmix'].$stderr,$out,$ret);
 		break;
@@ -78,7 +79,6 @@ if(isset($_SESSION['admin'])&& ($_SESSION['admin']==$ADMINPASSWORD)) {
                 foreach($sessions as $s) {
                         $to=$CONSOLIDATED.basename($s)."/";
                         mkdir($to);
-print("CONSOLIDATE: $s $to \n\n\n");
                         consolidate_tracks($s,$to);     
 		exec($COMMANDS['zipcons1'].$stderr,$out,$ret);
                 }
