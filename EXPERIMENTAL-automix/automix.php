@@ -165,7 +165,7 @@ function generate_mix($session) {
 	
 	exec($automixcommand,$out,$ret);
 	//return $out;
-	print("EXEC:".$automixcommand);
+	//print("EXEC:".$automixcommand);
 
 }
 
@@ -200,7 +200,7 @@ function consolidate_tracks($dir, $outdir) {
 		$maxvolumecommand=$checkmaxvolume.$t.
 		' -af "volumedetect" -f null /dev/null 2>&1 |grep max_volume';
 		exec($maxvolumecommand,$outvol,$retvol);
-		print($maxvolumecommand."\n");
+		//print($maxvolumecommand."\n");
 		$outvol2=explode(":",trim($outvol[0]));
 		$outvol2=explode(" ",substr($outvol2[1],0,-2)); 
 		$maxvolume=$outvol2[1]; 
@@ -226,7 +226,7 @@ function consolidate_tracks($dir, $outdir) {
 			);
 	}
 	
-	print_r($tracks);
+	//print_r($tracks);
 	foreach ($tracks as $ip=>$t){
 		$trackdur=0; 
 		$maxoffset=0;
@@ -290,10 +290,10 @@ function consolidate_tracks($dir, $outdir) {
 			" -filter_complex \"$delays $silencedelay $amix".
 			$silenceamix."concat=n=$total:v=0:a=1 $audionorm". "\"  $outname\n";
 
-		print($command."\n");
+		//print($command."\n");
 		exec($command, $outcommand);
 		exec("ls -l /var/tmp", $tmpout);
-		print_r($tmpout);
+		//print_r($tmpout);
 		unset($outcommand); 
 	}
 }
