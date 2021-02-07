@@ -6,6 +6,7 @@ In addition to that, a **consolidate** feature is present because needed for aut
 
 <img src="screenshot5.png" width="340" />
 
+**Beware: you need additional storage to run the scripts (only temporarily).** 
 I did not yet include them in the regular distribution because they should be tested, however you can already try it following the steps below. Only the PHP files should be changed. 
 
 First of all,
