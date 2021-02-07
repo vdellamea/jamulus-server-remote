@@ -50,7 +50,7 @@ Everything should be ready now and usable. In the web interface there is a "auto
 ## Configuration
 Without any specific configuration, the system attempts to pan the tracks in a uniformly distributed way (I hope). One player: centered; two: on per side (but not totally); three: one centered, one left, one right; etc. 
 
-However, since the system is prevalently aimed at private servers, in config.php you may set the name of each musician/singer exactly as in their Jamulus profile, and set the position relative to left (1.0= all left, 0= all right, 0.5= center, etc). Tracks are recognised by the name, and thus can be panned in an informed way (e.g., drums and bass in the middle, guitars well spaced, etc). This can be also done inside automix.php, which does not read the config.php file. 
+However, since the system is prevalently aimed at private servers, in config.php you may set the name of each musician/singer exactly as in their Jamulus profile, and set the position relative to left (1.0= all left, 0= all right, 0.5= center, etc). Tracks are recognised by the name, and thus can be panned in an informed way (e.g., drums and bass in the middle, guitars well spaced, etc). 
 
 ## Command line usage
 The `automix.php` file can be also invoked autonomously from command line. In this case, you may set bandmates panning right inside `automix.php`, without the need for `config.php`. 
