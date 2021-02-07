@@ -1,6 +1,6 @@
 # AUTOMIX/CONSOLIDATE feature
 
-These scripts add to an **automix** feature to an installation of Jamulus Recording Remote, based on the [ffmpeg](https://ffmpeg.org) package. The automix will generate an automatically mixed stereo MP3 from each recording session. Of course, the automix is just a rough preview, with no level adjustment. Panning is done in two ways, discussed below in the Configuration section.In addition to that, a **consolidate** feature is present because needed for automix, but it is also usable independently.
+These scripts add to an **automix** feature to an installation of Jamulus Recording Remote, based on the [ffmpeg](https://ffmpeg.org) package. The automix will generate an automatically mixed stereo MP3 from each recording session. Of course, the automix is just a rough preview, with no level adjustment. Panning is done in two ways, discussed below in the Configuration section.In addition to that, a **consolidate** feature is present because needed for automix, but it is also usable independently. This is aimed at producing WAV files that can be used with DAWs different from Reaper and Audacity: tracks all begin at time 0, so it is easy to import them. 
 
 <img src="screenshot5.png" width="340" />
 
@@ -61,3 +61,4 @@ or the full recordings directory:
 `php automix all /path/to/recordings `
 
 By the way, before setting everything, you can experiment with it. 
+
