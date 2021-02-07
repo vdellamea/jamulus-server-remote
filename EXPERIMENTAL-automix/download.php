@@ -1,6 +1,6 @@
 <?php
-// Jamulus Recording Remote
-// v0.5 - 20210201
+// Jamulus Server Remote
+// v0.1 - 20201206
 // Vincenzo Della Mea
 
 // PROTECTED DOWNLOAD
@@ -9,12 +9,12 @@ include("config.php");
 if((isset($_SESSION['admin'])&& ($_SESSION['admin']==$ADMINPASSWORD)) ||
 	(isset($_SESSION['musician'])&& ($_SESSION['musician']==$MUSICIANPASSWORD))) {
 
-	if(isset($_GET['what']) && $_GET['what']=='all') 
-		$file="$RECORDINGS"."session.zip";
-	else if(isset($_GET['what']) && $_GET['what']=='today') 
-		$file="$RECORDINGS".date("Ymd").".zip";
+	if(isset($_GET['what']) && $_GET['what']=='consolidated') 
+		$file="$RECORDINGS"."consolidated-".date("Ymd").".zip";
+	else if(isset($_GET['what']) && $_GET['what']=='all') 
+		$file="$RECORDINGS"."orig-".date("Ymd").".zip";
         else if(isset($_GET['what']) && $_GET['what']=='mix') 
-                $file="$RECORDINGS"."mix.zip";
+                $file="$RECORDINGS"."mix-".date("Ymd").".zip";
 	else
 		die("No, thanks");
 		

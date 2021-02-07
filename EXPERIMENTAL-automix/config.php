@@ -1,32 +1,31 @@
-<?php 
-// Jamulus Recording Remote
-// v0.5 - 20210201
+<?php // Jamulus Server Remote 
+// v0.4 - 20210110 
 // Vincenzo Della Mea
 
 // CONFIGURATION FILE
 
-$SERVERNAME="BAND OR SERVER NAME"; //up to you
-$ADMINPASSWORD= "secret"; // change it!
-$MUSICIANPASSWORD="alsosecret"; // change it!
+$SERVERNAME="Musica Permanente"; //up to you
+$ADMINPASSWORD= "soloio"; // change it!
+$MUSICIANPASSWORD="tuttiquanti"; // change it!
 $RECORDINGS="/home/jamulus/recording/"; //change this only if you are adapting to your server
-$DEBUG=false;  //in case of issues, set it at true and you will see some more infos
+$DEBUG=true;  //in case of issues, set it at true and you will see some more infos
 
 
 // AUTOMIX SETTINGS
-$MIX="/home/jamulus/mix/"; //as above
+$MIX="/home/jamulus/mix/"; //as previous
+$CONSOLIDATED="/home/jamulus/consolidated/";
+$AUDIONORMALIZATION=false;
 
 // Bandmates names to be used for "informed" automix
-// 'name' => value,
-// name exactly as in Jamulus profile, 
-// value: 1= left only, 0= right only, 0.5= center, etc
-// Names not specified are automatically panned.
-
+// name => left percentage (right is 1-left)
 $BANDMATES=array(
-	'Jimi' =>1.0, //all left
-	'Gwen' =>0.45, //slightly right
-	'Carol' =>0.5, //center
-	'Stevie' =>0.0, //all right
-	'Stewart' => 0.5, //center
+	'Alex' =>0.55,
+	'CP__' =>0.45,
+	'Andrea' =>0.5,
+	'Enzo' =>0.5,	
+	'Luca_DG'=> 0.3,
+	'Daniele'=> 0.9,
+	'gigio'=> 0.1,
 );
 
 ?>

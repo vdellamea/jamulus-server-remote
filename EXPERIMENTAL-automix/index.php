@@ -1,6 +1,6 @@
 <?php
-// Jamulus Recording Remote
-// v0.5 - 20210201
+// Jamulus Server Remote
+// v0.4 - 20210110
 // Vincenzo Della Mea
 
 // INTERFACE
@@ -75,11 +75,11 @@ if(
 <p>
 <button type="button" id="compressbutton" 
 	style="background-color: navy" 
-	onclick="sendcommand('compress', this)">Zip all</button>
+	onclick="sendcommand('compress', this)">Zip WAVs</button>
 
-<button type="button" id="compressday" 
+<button type="button" id="consolidate" 
         style="background-color: navy"
-        onclick="sendcommand('compressday', this)">Zip today</button>
+        onclick="sendcommand('consolidate', this)">Consolidate</button>
 <button type="button" id="automix" 
         style="background-color: navy"
         onclick="sendcommand('automix', this)">Automix</button>
@@ -95,9 +95,9 @@ if(
         onclick="sendcommand('cleanzip',this)">Delete ZIPs</button>
 
 </p>
-<p><a href="download.php?what=all">Zipped everything</a>&nbsp;|&nbsp; 
-<a href="download.php?what=today">Today's zip</a>&nbsp;|&nbsp;  
-<a href="download.php?what=mix">Today's mix</a>
+<p>Zipped: <a href="download.php?what=all">Originals</a>&nbsp;|&nbsp; 
+<a href="download.php?what=consolidated">Consolidated</a>&nbsp;|&nbsp;  
+<a href="download.php?what=mix">Mixed</a>
 </p>
 
 <script>
@@ -114,7 +114,7 @@ function sendtoggle() {
 	next='grey';
         document.getElementById("newbutton").disabled=true;
 	document.getElementById("compressbutton").disabled=false;
-	document.getElementById("compressday").disabled=false;
+	document.getElementById("consolidate").disabled=false;
 	document.getElementById("cleanbutton").disabled=false;
         document.getElementById("cleanzips").disabled=false;
         document.getElementById("automix").disabled=false;
@@ -122,7 +122,7 @@ function sendtoggle() {
 	else {
         document.getElementById("newbutton").disabled=false;
         document.getElementById("compressbutton").disabled=true;
-        document.getElementById("compressday").disabled=true;
+        document.getElementById("consolidate").disabled=true;
         document.getElementById("cleanbutton").disabled=true;
         document.getElementById("cleanzips").disabled=true;
         document.getElementById("automix").disabled=true;
@@ -184,9 +184,11 @@ if(
 		
 ?>
 <h3>Files</h3>
-<p><a href="download.php?what=all">Zipped everything</a> </p>
-<p><a href="download.php?what=today">Today's zip</a>  </p>
-<p><a href="download.php?what=mix">Today's mix</a></p>
+<p><a href="download.php?what=all">Zipped WAVs</a> </p>
+<p>
+<a href="download.php?what=consolidated">Consolidated files</a>  
+</p>
+<p><a href="download.php?what=mix">Mixed MP3</a></p>
 
 <?php
 }
@@ -212,7 +214,7 @@ else {
 <input type="submit" name="logout" value="logout" />
 </form>
 <address>
-VDM 2021 v0.5 20210102
+VDM 2021
 </address>
   </body>
 </html>
