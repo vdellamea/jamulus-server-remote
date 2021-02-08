@@ -21,7 +21,7 @@ $AUDIONORMALIZATION=false; //Experimental - not yet good
 $BANDMATES=array(
 	'Jimi' =>0.55,
 	'Eric' =>0.45,
-	'John' =>0.5,
+	'Carol' =>0.5,
 	'Patti' =>0.5,	
 	'Stevie'=> 0.3,
 );
