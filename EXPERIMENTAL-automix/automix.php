@@ -14,14 +14,13 @@ if(isCommandLineInterface()) {
 // Names not specified are automatically panned.
 
 $BANDMATES=array(
-	'Alex' =>0.55,
-	'CP__' =>0.45,
-	'Andrea' =>0.5,
-	'Enzo' =>0.5,	
-	'Luca_DG'=> 0.3,
-	'Daniele'=> 0.9,
-	'gigio'=> 0.1,
+	'Jimi' =>0.55,
+	'Eric' =>0.45,
+	'Carol' =>0.5,
+	'Patti' =>0.5,	
+	'Stevie'=> 0.3,
 );
+
 $MIX="./";
 
 $today=date("Ymd");
@@ -292,8 +291,6 @@ function consolidate_tracks($dir, $outdir) {
 
 		//print($command."\n");
 		exec($command, $outcommand);
-		exec("ls -l /var/tmp", $tmpout);
-		//print_r($tmpout);
 		unset($outcommand); 
 	}
 }
