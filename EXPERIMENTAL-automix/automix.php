@@ -256,7 +256,7 @@ function consolidate_tracks($dir, $outdir) {
 			if($maxvolume>0 && $maxvolume<7)
 				$volumeincrease=" ,volume=".$maxvolume."dB";
 			$delays.=
-			"[$c]aformat=sample_fmts=s16:sample_rates=48000:cl=$monostereo,adelay=".
+			"[$c]aformat=sample_fmts=s16:sample_rates=48000:channel_layouts=$monostereo,adelay=".
 				$delay."|".$delay.$volumeincrease."[a$c]; ";
 //			",volume=".$volumeincrease."[a$c]; ";
 			$amix.="[a$c]";
