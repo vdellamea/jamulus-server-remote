@@ -10,10 +10,13 @@ In addition to that, a **consolidate** feature is present because needed for aut
 I did not yet include them in the regular distribution because they should be tested, however you can already try it following the steps below, if you already have the Recording Remote installed. Only the PHP files should be changed. 
 
 First of all,
-- install ffmpeg:
+- install ffmpeg version 4.3.X:
 ```
 sudo apt-get install ffmpeg
 ```
+
+NB: Ubuntu 18.04 by default installs v.3.4.X, which is old. Refer to this explanation to install a more recent version: https://ubuntuhandbook.org/index.php/2020/06/install-ffmpeg-4-3-via-ppa-ubuntu-18-04-16-04/
+
 - download the PHP files here listed.
 
 You can already test the system this way:
