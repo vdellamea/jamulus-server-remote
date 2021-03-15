@@ -29,16 +29,22 @@ if($DEBUG) {
     	body {background-color: #62a7c6; 
     		line-height:100%
     		}
-		textarea {font-size: 110%; }
-    	button {color: white; font-size: larger;}
+	textarea {font-size: 110%; 
+		padding: 0.3em;
+		}
+	button {color: white; 
+		font-size: larger;
+		padding: 0 0.4em;
+		border-radius: 5px;}
 		button:disabled,button[disabled]{
   			border: 1px solid #999999;
   			background-color: #cccccc;
   			color: #666666;
 			border-radius: 5px;
 		}
-	#reloadbutton {font-size: smaller; }
+	#reloadbutton {/* font-size: smaller; */}
 	.line { margin-top: 0.5em; }
+	.lm { margin-left: 1em; }
     </style>
 
   </head>
@@ -63,15 +69,16 @@ if(
 	onclick="sendcommand('newrec',this)">Start new</button>
 </p>
 
-<h3>Sessions
+<h3>Sessions</h3>
+<div class="filelist">
 <button type="button" id="reloadbutton" 
         style="background-color: navy"
         onclick="sendcommand('listrec', this)">Refresh list</button>
-<span>Free: </span><span id="freespace">-</span>
-</h3>
-<p>
+<span class="lm">Free: </span><span id="freespace">-</span>
+</div>
+<div class="line">
 <textarea id="log" cols="40" rows="12"></textarea>
-</p>
+</div>
 <h3>Finish</h3>
 <p>
 <div class="line">
@@ -93,9 +100,10 @@ if(
         onclick="sendcommand('cleanzip',this)">Delete ZIPs</button>
 
 </div>
-<p><a href="download.php?what=all">Zipped everything</a> 
-<a href="download.php?what=today">Today's zip</a>  
-</p>
+<h3>Download</h3>
+<div><a href="download.php?what=all">Zipped everything</a> 
+<a class="lm" href="download.php?what=today">Today's zip</a>  
+</div>
 
 <script>
 var endpoint="worker.php";
@@ -206,7 +214,7 @@ else {
 <form action="index.php" method="post">
 <input type="submit" name="logout" value="logout" />
 </form>
-<address>
+<address class="line">
 VDM 2020
 </address>
   </body>
