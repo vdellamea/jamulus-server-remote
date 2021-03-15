@@ -25,9 +25,9 @@ if($DEBUG) {
 
     <title>Jamulus Recording Remote</title>
     <style type="text/css">
-    	* { font-family: sans-serif;  }
+    	* { font-family: "Open Sans", sans-serif;  }
     	body {background-color: #62a7c6; 
-    		line-height:80%
+    		line-height:100%
     		}
 		textarea {font-size: 110%; }
     	button {color: white; font-size: larger;}
@@ -35,13 +35,14 @@ if($DEBUG) {
   			border: 1px solid #999999;
   			background-color: #cccccc;
   			color: #666666;
+			border-radius: 5px;
 		}
 	#reloadbutton {font-size: smaller; }
+	.line { margin-top: 0.5em; }
     </style>
 
   </head>
 <body>
-	<h2>Jamulus Recording Remote</h2>
 <?php
 print("<h1>$SERVERNAME</h1>\n");
 if(
@@ -50,7 +51,7 @@ if(
 	) {
 		$_SESSION['admin']=$ADMINPASSWORD;
 ?>
-    
+<h2>Jamulus Recording Remote</h2>
 <h3>Recording</h3>  
 <p id="recarea">
 <button type="button" id="togglebutton"
@@ -73,6 +74,7 @@ if(
 </p>
 <h3>Finish</h3>
 <p>
+<div class="line">
 <button type="button" id="compressbutton" 
 	style="background-color: navy" 
 	onclick="sendcommand('compress', this)">Zip all</button>
@@ -80,7 +82,8 @@ if(
 <button type="button" id="compressday" 
         style="background-color: navy"
         onclick="sendcommand('compressday', this)">Zip today</button>
-<br />
+</div>
+<div class="line">
 <button type="button" id="cleanbutton" title="Careful: this destroys all session files" 
 	style="background-color: navy"
 	onclick="sendcommand('cleanwav',this)">Delete WAVs</button>
@@ -89,7 +92,7 @@ if(
         style="background-color: navy"
         onclick="sendcommand('cleanzip',this)">Delete ZIPs</button>
 
-</p>
+</div>
 <p><a href="download.php?what=all">Zipped everything</a> 
 <a href="download.php?what=today">Today's zip</a>  
 </p>
