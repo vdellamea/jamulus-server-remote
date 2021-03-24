@@ -25,23 +25,30 @@ if($DEBUG) {
 
     <title>Jamulus Recording Remote</title>
     <style type="text/css">
-    	* { font-family: sans-serif;  }
+    	* { font-family: "Open Sans", sans-serif;  }
     	body {background-color: #62a7c6; 
-    		line-height:80%
+    		line-height:100%
     		}
-		textarea {font-size: 110%; }
-    	button {color: white; font-size: larger;}
+	textarea {font-size: 110%; 
+		padding: 0.3em;
+		}
+	button {color: white; 
+		font-size: larger;
+		padding: 0 0.4em;
+		border-radius: 5px;}
 		button:disabled,button[disabled]{
   			border: 1px solid #999999;
   			background-color: #cccccc;
   			color: #666666;
+			border-radius: 5px;
 		}
-	#reloadbutton {font-size: smaller; }
+	#reloadbutton {/* font-size: smaller; */}
+	.line { margin-top: 0.5em; }
+	.lm { margin-left: 1em; }
     </style>
 
   </head>
 <body>
-	<h2>Jamulus Recording Remote</h2>
 <?php
 print("<h1>$SERVERNAME</h1>\n");
 if(
@@ -50,7 +57,7 @@ if(
 	) {
 		$_SESSION['admin']=$ADMINPASSWORD;
 ?>
-    
+<h2>Jamulus Recording Remote</h2>
 <h3>Recording</h3>  
 <p id="recarea">
 <button type="button" id="togglebutton"
@@ -62,17 +69,19 @@ if(
 	onclick="sendcommand('newrec',this)">Start new</button>
 </p>
 
-<h3>Sessions
+<h3>Sessions</h3>
+<div class="filelist">
 <button type="button" id="reloadbutton" 
         style="background-color: navy"
         onclick="sendcommand('listrec', this)">Refresh list</button>
-<span>Free: </span><span id="freespace">-</span>
-</h3>
-<p>
+<span class="lm">Free: </span><span id="freespace">-</span>
+</div>
+<div class="line">
 <textarea id="log" cols="40" rows="12"></textarea>
-</p>
+</div>
 <h3>Finish</h3>
 <p>
+<div class="line">
 <button type="button" id="compressbutton" 
 	style="background-color: navy" 
 	onclick="sendcommand('compress', this)">Zip all</button>
@@ -80,7 +89,8 @@ if(
 <button type="button" id="compressday" 
         style="background-color: navy"
         onclick="sendcommand('compressday', this)">Zip today</button>
-<br />
+</div>
+<div class="line">
 <button type="button" id="cleanbutton" title="Careful: this destroys all session files" 
 	style="background-color: navy"
 	onclick="sendcommand('cleanwav',this)">Delete WAVs</button>
@@ -89,10 +99,11 @@ if(
         style="background-color: navy"
         onclick="sendcommand('cleanzip',this)">Delete ZIPs</button>
 
-</p>
-<p><a href="download.php?what=all">Zipped everything</a> 
-<a href="download.php?what=today">Today's zip</a>  
-</p>
+</div>
+<h3>Download</h3>
+<div><a href="download.php?what=all">Zipped everything</a> 
+<a class="lm" href="download.php?what=today">Today's zip</a>  
+</div>
 
 <script>
 var endpoint="worker.php";
@@ -203,7 +214,7 @@ else {
 <form action="index.php" method="post">
 <input type="submit" name="logout" value="logout" />
 </form>
-<address>
+<address class="line">
 VDM 2020
 </address>
   </body>
