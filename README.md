@@ -1,24 +1,18 @@
-# Jamulus Recording Remote - 0.4 (2021-01-08)
-A light-weight web-based interface for Jamulus headless server when installed on a Linux system. No frills, supersimple.
+# Jamulus Recording Remote - 0.6 (2021-05-12)
+A light-weight web-based interface for Jamulus headless server when installed on a Linux system. No frills, supersimple. Version 0.6 is compatible with Jamulus 3.7; users of previous versions should download version 0.4.1.
 
-Jamulus Server Remote allows to start and stop recordings, and at the end zip them to be downloaded via the Web. While in principle it can be installed on any Linux distribution, at the moment it has been tested on Ubuntu 18.04 installed on an AWS EC2 machine only. If you have to create a new server on AWS, just follow the instructions below and will be very easy. Adapting a running system requires some adaptation (details in the Details section below). 
+Jamulus Recording Remote allows to start and stop recordings, and at the end zip them to be downloaded via the Web. The current version is tested on Ubunto 20.04 Minimal. Installing on an already running system requires some adaptation (details in the Details section below). 
 
 **Warning: use it at your own risk** 
-*Jamulus Server Remote has not yet been thoroughly examined for security issues, thus use it at your own risk, in particular if on a server running continuously. In particular, to be safe, Apache has to be set on https only.*
+*Jamulus Recording Remote has not yet been thoroughly examined for security issues, thus use it at your own risk, in particular if on a server running continuously. In particular, to be safe, Apache has to be set on https only.*
 
 ## Prerequisites
-Jamulus should be installed according to official [instructions](https://jamulus.io/wiki/Server-Linux) (using the installscript included in the `distributions` folder is perfectly okay), set as systemd service, and with the suggested additional services for beginning and toggling recording. 
+Jamulus should be installed according to official [instructions](https://jamulus.io/wiki/Server-Linux) for a headless server. 
 The server must be started with the recording directory set to a directory accessible to apache (e.g., `-R /var/www/html/recordings`) and the `--norecord` option, to initially disable recording. Having the recording directory in the same directory of the PHP scripts makes things simpler.
 
-If you do not have already installed Jamulus server, you may quickly do it as follows (for Ubuntu):
+The rest of this README refers to Ubuntu 20.04, but it should be easily adaptable to other Linux platforms.
 
-`wget https://raw.githubusercontent.com/jamulussoftware/jamulus/master/distributions/installscripts/install4ubuntu.sh`
-
-`sh install4ubuntu.sh`
-
-Other install scripts can be found here: https://github.com/jamulussoftware/jamulus/tree/master/distributions
-
-The rest of this README refers to Ubuntu, but it should be easily adaptable to other Linux platforms.
+# INSTRUCTIONS ARE NOT YET UPDATED FOR THIS VERSION! BE CAREFUL .
 
 ## How to update from previous version
 
