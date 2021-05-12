@@ -1,0 +1,31 @@
+[Unit]
+Description=Jamulus headless server
+After=network.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+User=jamulus
+Group=www-data
+UMask=0002
+NoNewPrivileges=true
+ProtectSystem=true
+ProtectHome=false
+Nice=-20
+IOSchedulingClass=realtime
+IOSchedulingPriority=0
+
+#### Change this to publish this server, set genre, location and other parameters.
+#### See https://jamulus.io/wiki/Command-Line-Options ####
+ExecStart=/usr/bin/jamulus-headless -s -F -d -n -T -w "Your message" --norecord -R "/home/jamulus/recording"
+
+
+Restart=on-failure
+RestartSec=30
+StandardOutput=journal
+StandardError=inherit
+SyslogIdentifier=jamulus
+
+
+[Install]
+WantedBy=multi-user.target

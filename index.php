@@ -1,7 +1,8 @@
 <?php
 // Jamulus Server Remote
-// v0.4 - 20210110
+// v0.5 - 20210430
 // Vincenzo Della Mea
+// CSS and HTML updates by Simon White
 
 // INTERFACE
 session_start();
@@ -36,7 +37,7 @@ if($DEBUG) {
 		font-size: larger;
 		padding: 0 0.4em;
 		border-radius: 5px;}
-		button:disabled,button[disabled]{
+	button:disabled,button[disabled]{
   			border: 1px solid #999999;
   			background-color: #cccccc;
   			color: #666666;
@@ -84,11 +85,16 @@ if(
 <div class="line">
 <button type="button" id="compressbutton" 
 	style="background-color: navy" 
-	onclick="sendcommand('compress', this)">Zip all</button>
+	onclick="sendcommand('compress', this)">Zip WAVs</button>
 
-<button type="button" id="compressday" 
+<button type="button" id="consolidate" 
         style="background-color: navy"
-        onclick="sendcommand('compressday', this)">Zip today</button>
+        onclick="sendcommand('consolidate', this)">Consolidate</button>
+        
+<button type="button" id="automix" 
+        style="background-color: navy"
+        onclick="sendcommand('automix', this)">Automix</button>
+
 </div>
 <div class="line">
 <button type="button" id="cleanbutton" title="Careful: this destroys all session files" 
@@ -101,8 +107,10 @@ if(
 
 </div>
 <h3>Download</h3>
-<div><a href="download.php?what=all">Zipped everything</a> 
-<a class="lm" href="download.php?what=today">Today's zip</a>  
+<div><a href="download.php?what=all">Original tracks</a>&nbsp;|&nbsp; 
+<a  class="lm" href="download.php?what=consolidated">Consolidated</a>&nbsp;|&nbsp;  
+<a  class="lm" href="download.php?what=mix">Mixed</a> 
+ 
 </div>
 
 <script>
@@ -119,14 +127,18 @@ function sendtoggle() {
 	next='grey';
         document.getElementById("newbutton").disabled=true;
 	document.getElementById("compressbutton").disabled=false;
-	document.getElementById("compressday").disabled=false;
+
+document.getElementById("consolidate").disabled=false;
+
+document.getElementById("automix").disabled=false;
 	document.getElementById("cleanbutton").disabled=false;
         document.getElementById("cleanzips").disabled=false;
 	}
 	else {
         document.getElementById("newbutton").disabled=false;
-        document.getElementById("compressbutton").disabled=true;
-        document.getElementById("compressday").disabled=true;
+        document.getElementById("compressbutton").disabled=true;       
+        document.getElementById("consolidate").disabled=true;
+    document.getElementById("automix").disabled=true;
         document.getElementById("cleanbutton").disabled=true;
         document.getElementById("cleanzips").disabled=true;
 	}
@@ -187,10 +199,11 @@ if(
 		
 ?>
 <h3>Files</h3>
-<p><a href="download.php?what=all">Zipped everything</a> </p>
+<p><a href="download.php?what=all">Zipped WAVs</a> </p>
 <p>
-<a href="download.php?what=today">Today's zip</a>  
+<a href="download.php?what=consolidated">Consolidated files</a>  
 </p>
+<p><a href="download.php?what=mix">Mixed MP3</a></p>
 <?php
 }
 else {
@@ -215,7 +228,7 @@ else {
 <input type="submit" name="logout" value="logout" />
 </form>
 <address class="line">
-VDM 2020
+<a href="https://github.com/vdellamea/jamulus-server-remote/">Jamulus Recording Remote</a>
 </address>
   </body>
 </html>

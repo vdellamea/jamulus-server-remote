@@ -1,0 +1,2 @@
+www-data  ALL=(ALL)NOPASSWD: /bin/systemctl kill -s SIGUSR1 jamulus-headless
+www-data  ALL=(ALL)NOPASSWD: /bin/systemctl kill -s SIGUSR2 jamulus-headless
