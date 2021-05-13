@@ -1,4 +1,7 @@
 # Jamulus Recording Remote - 0.6 (2021-05-12)
+# INSTRUCTIONS ARE NOT YET fully UPDATED FOR THIS VERSION! BE CAREFUL .
+
+
 A light-weight web-based interface for Jamulus headless server when installed on a Linux system. No frills, supersimple. Version 0.6 is compatible with Jamulus 3.7; users of previous versions should download version 0.4.1.
 
 Jamulus Recording Remote allows to start and stop recordings, and at the end zip them to be downloaded via the Web. The current version is tested on Ubunto 20.04 Minimal. Installing on an already running system requires some adaptation (details in the Details section below). 
@@ -10,9 +13,6 @@ Jamulus Recording Remote allows to start and stop recordings, and at the end zip
 Jamulus should be installed according to official [instructions](https://jamulus.io/wiki/Server-Linux) for a headless server, i.e., with a service named `jamulus-headless`. 
 
 The rest of this README refers to Ubuntu 20.04, but it should be easily adaptable to other Linux platforms.
-
-# INSTRUCTIONS ARE NOT YET UPDATED FOR THIS VERSION! BE CAREFUL .
-
 
 ## Quick install
 
