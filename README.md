@@ -88,7 +88,40 @@ At the end, you can zip all the sessions (as `session.zip` file), or just those 
 
  *No need to check the rest if you installed from scratch as described above.*
  
-## Details for adapting to an already installed service
+## Automix and consolidate
+
+The automix will generate an automatically mixed stereo MP3 from each recording session. Of course, the automix is just a rough preview, with no level adjustment. Panning is done in two ways, discussed below.
+
+In addition to that, a consolidate feature is present because needed for automix, but it is also usable independently. This is aimed at producing WAV (or other formats) files that can be used with DAWs different from Reaper and Audacity: tracks all begin at time 0, so it is easy to import them.
+
+Beware: you need additional storage to run the scripts (only temporarily). I did not yet include them in the regular distribution because they should be tested, however you can already try it following the steps below, if you already have the Recording Remote installed. Only the PHP files should be changed.
+
+Automix and consolidate can be run also inependently from the web system, by running `php automix.php` with appropriate parameters:
+
+--automix (default) / --consolidate
+
+Is a full Recordings directory or a single session?
+
+--single (default) / --all
+
+Files:
+
+--in path_to_recordings directory
+
+--out path_to_generated (default: current dir)
+
+Options:
+
+--format (wav,mp3,opus, ...) (default: mp3 for automix, wav for consolidate)
+
+--normalize audio normalization, default off - not good yet
+
+--debug add extra output
+
+--help this one
+
+ 
+# Details for adapting to an already installed service
 The following description is aimed at explaining what the installation script does, and it can be useful for those that want to install the interface on an already running server, or on a different distribution, or for any other reason.
 
 Download the code from this repository; the web-based interface itself is only including 4 files. Move the 4 files in the `/var/www/html` directory (or similar place in other distributions). 
