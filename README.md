@@ -38,7 +38,7 @@ enter the unzipped directory:
 
 Then run the `install-remote.sh` script to install the web-based remote. With a browser, go to the server address (IP or domain), and you will find the interface; enter the password you have set in the configuration.
 
-The service section of the service description should appear as below: some of the fields are different from the standard one, some are new. If you are in a new installation, just copy the jamulus.service provided in the right place.
+The service section of the service description should appear as below: some of the fields are different from the standard one, some are new. If you are in a new installation, just copy the `jamulus-headless.service` provided here in the right place.
 ```
 [Service]
 Type=simple
