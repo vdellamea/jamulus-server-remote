@@ -7,39 +7,18 @@ Jamulus Recording Remote allows to start and stop recordings, and at the end zip
 *Jamulus Recording Remote has not yet been thoroughly examined for security issues, thus use it at your own risk, in particular if on a server running continuously. In particular, to be safe, Apache has to be set on https only.*
 
 ## Prerequisites
-Jamulus should be installed according to official [instructions](https://jamulus.io/wiki/Server-Linux) for a headless server. 
-The server must be started with the recording directory set to a directory accessible to apache (e.g., `-R /var/www/html/recordings`) and the `--norecord` option, to initially disable recording. Having the recording directory in the same directory of the PHP scripts makes things simpler.
+Jamulus should be installed according to official [instructions](https://jamulus.io/wiki/Server-Linux) for a headless server, i.e., with a service named `jamulus-headless`. 
 
 The rest of this README refers to Ubuntu 20.04, but it should be easily adaptable to other Linux platforms.
 
 # INSTRUCTIONS ARE NOT YET UPDATED FOR THIS VERSION! BE CAREFUL .
-
-## How to update from previous version
-
-You will need to re-enter passwords and server name, however from the next version this likely will not be needed.
-
-Download the code:
-
-`wget https://github.com/vdellamea/jamulus-server-remote/archive/main.zip`
-
-Unzip it:
-
-`unzip main.zip`
-
-enter the unzipped directory:
-
-`cd jamulus-server-remote-main`
-
-Copy the PHP files to the web directory:
-
-`sudo cp *.php /var/www/html/`
 
 
 ## Quick install
 
 **If you have a personalised install of Jamulus already running, do not follow these instructions, but read the details at the bottom to adapt the system to your local needs.**
 
-The below commands are also summarized in https://github.com/vdellamea/jamulus-server-remote/blob/main/QUICK-INSTALL.md for super-quick installation **on a fresh installation** on Ubuntu 18.04.
+The below commands are also summarized in https://github.com/vdellamea/jamulus-server-remote/blob/main/QUICK-INSTALL.md for super-quick installation **on a fresh installation** on Ubuntu 20.04.
 
 Be sure to have zip:
 
@@ -56,8 +35,6 @@ Unzip it:
 enter the unzipped directory:
 
 `cd jamulus-server-remote-main`
-
-Run the `install-service.sh` script to install and start Jamulus as systemd service, as well as the two services needed for toggling recording and starting a new one. If you already have a service installed, please do not run the script, but look at it and run only the commands needed to adapt to your system.
 
 Then run the `install-remote.sh` script to install the web-based remote. With a browser, go to the server address (IP or domain), and you will find the interface; enter the password you have set in the configuration.
 
@@ -77,10 +54,6 @@ Please change the passwords:
 
 `$MUSICIANSPASSWORD= "******";`
 
-
-This is the recording directory set also in the Jamulus parameters and in the `jamulus.service` file:
-
-`$RECORDINGS="/var/www/html/recording/";`
 
 
 If you set this one to true, in the Session box you can see some extra output, which can help in debugging:
