@@ -8,7 +8,7 @@ $SERVERNAME="BAND NAME"; //up to you
 $ADMINPASSWORD= "secret1"; // change it!
 $MUSICIANPASSWORD="secret2"; // change it!
 $RECORDINGS="/home/jamulus/recording/"; //change this only if you are adapting to your server
-$DEBUG=true;  //in case of issues, set it at true and you will see some more infos
+$DEBUG=false;  //in case of issues, set it at true and you will see some more infos
 
 
 // AUTOMIX SETTINGS
