@@ -14,7 +14,7 @@ $DEBUG=false;  //in case of issues, set it at true and you will see some more in
 // AUTOMIX SETTINGS
 $MIX="/home/jamulus/mix/"; //as previous
 $CONSOLIDATED="/home/jamulus/consolidated/";
-$CFORMAT="mp3";
+$CFORMAT="mp3"; // also flac, wav, etc
 $AUDIONORMALIZATION=false; //Experimental - not yet good
 
 // Bandmates names to be used for "informed" automix
