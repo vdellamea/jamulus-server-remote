@@ -1,6 +1,4 @@
 # Jamulus Recording Remote - 0.6 (2021-05-12)
-# INSTRUCTIONS ARE NOT YET fully UPDATED FOR THIS VERSION! BE CAREFUL .
-
 
 A light-weight web-based interface for Jamulus headless server when installed on a Linux system. No frills, supersimple. Version 0.6 is compatible with Jamulus 3.7; users of previous versions should download version 0.4.1.
 
@@ -36,7 +34,7 @@ enter the unzipped directory:
 
 `cd jamulus-server-remote-main`
 
-Then run the `install-remote.sh` script to install the web-based remote. With a browser, go to the server address (IP or domain), and you will find the interface; enter the password you have set in the configuration.
+Then run the `install-remote.sh` script to install the web-based remote. With a browser, go to the server address (IP or domain), and you will find the interface; enter the password you have set in the configuration (`/var/www/html/config.php`).
 
 The service section of the service description should appear as below: some of the fields are different from the standard one, some are new. If you are in a new installation, just copy the `jamulus-headless.service` provided here in the right place.
 ```
@@ -78,25 +76,26 @@ Access to the commands is protected by the password you set in the configuration
 
 <img src="screenshots/screenshot1.png" width="340" /> <img src="screenshots/screenshot2.png" width="340" />
 
-At each first access, the interface expects Jamulus to have *recording disabled*. Thus the "toggle on/off" button is off, and the "Start new" is disabled. This also means that just one admin at a time must access the interface, to avoid mishaps. Then, the toggle button activate/disactivate recording, the Start new button start a new recording. 
+At each first access, the interface expects Jamulus to have *recording disabled* (there is no obvious way to determine its status from code). Thus the "toggle on/off" button is off, and the "Start new" is disabled. This also means that just one admin at a time must access the interface, to avoid mishaps. Then, the toggle button activate/disactivate recording, the Start new button start a new recording. 
 
 <img src="screenshots/screenshot3.png" width="340" /> <img src="screenshots/screenshot4.png" width="340" />
 
 At the end of each execution, buttons trigger a refresh of the Sessions textarea, where recordings are shown with their size. However, you may also reload to update the size of the last recording. 
 
-At the end, you can zip all the sessions (as `session.zip` file), or just those of the current day (as `YYYYMMDD.zip` file). "Delete WAVs" deletes all sessions (the WAV files); "Delete ZIPs" deletes all ZIP files, so be careful. 
+At the end, you can zip all the original files of the session (as `orig-YYYY-MM-DD.zip` file). "Delete WAVs" deletes all sessions (the WAV files); "Delete ZIPs" deletes all ZIP files, so be careful. 
 
- *No need to check the rest if you installed from scratch as described above.*
  
 ## Automix and consolidate
 
-The automix will generate an automatically mixed stereo MP3 from each recording session. Of course, the automix is just a rough preview, with no level adjustment. Panning is done in two ways, discussed below.
+The *automix* will generate an automatically mixed stereo MP3 from each recording session. Of course, the automix is just a rough preview, with no level adjustment. Panning is done in two ways, discussed below.
 
-In addition to that, a consolidate feature is present because needed for automix, but it is also usable independently. This is aimed at producing WAV (or other formats) files that can be used with DAWs different from Reaper and Audacity: tracks all begin at time 0, so it is easy to import them.
+In addition to that, a *consolidate* feature is present because needed for automix, but it is also usable independently. This is aimed at producing WAV (or other formats like mp3 and flac) files that can be used with DAWs different from Reaper and Audacity: tracks all begin at time 0, so it is easy to import them in any DAW, not only Reaper and Audacity.
 
-Beware: you need additional storage to run the scripts (only temporarily). I did not yet include them in the regular distribution because they should be tested, however you can already try it following the steps below, if you already have the Recording Remote installed. Only the PHP files should be changed.
+After having run automix or consolidate, you may download the zipped version of the files as `mix-YYYY-MM-DD.zip` and `consolidated-YYYY-MM-DD.zip`.
 
-Automix and consolidate can be run also inependently from the web system, by running `php automix.php` with appropriate parameters:
+Beware: you need additional storage to run the scripts (although only temporarily). 
+
+Automix and consolidate can be run also independently from the web system, by running `php automix.php` with appropriate parameters:
 
 --automix (default) / --consolidate
 
@@ -120,8 +119,36 @@ Options:
 
 --help this one
 
+### Automix configuration
+
+Without any specific configuration, the system attempts to pan the tracks in a uniformly distributed way. One player: centered; two: one per side (but not totally); three: one centered, one left, one right; etc. They are ordered from left to right in alphabetical order by the profile name, and this may help to set the panning for large groups: e.g., you may ask singers to prefix their name with a number (01, 02, 03...). 
+
+However, since the system is prevalently aimed at private servers, in config.php you may set the name of each musician/singer exactly as in their Jamulus profile, and set the position relative to left (1.0= all left, 0= all right, 0.5= center, etc). Tracks are recognised by the profile name, and thus can be panned in an informed way (e.g., drums and bass in the middle, guitars well spaced, etc). 
+
+```
+$BANDMATES=array(
+	'Jimi' =>0.55,
+	'Eric' =>0.45,
+	'John' =>0.5,
+	'Patti' =>0.5,	
+	'Stevie'=> 0.3,
+);
+```
+
+If you run `automix.php` independently, the same settings are to be put in the automix.php file, because it does not use config.php.
+
+In addition to that, you may set the format for the consolidated tracks, as mp3, wav, flac (actually, any format managed by ffmpeg). Normalization is not yet good. 
+
+```
+$CFORMAT="mp3"; // also flac, wav, etc
+$AUDIONORMALIZATION=false; //Experimental - not yet good
+```
+
+ *No need to check the rest if you installed from scratch as described above.*
  
 # Details for adapting to an already installed service
+# INSTRUCTIONS ARE NOT YET fully UPDATED FOR THIS VERSION! BE CAREFUL.
+
 The following description is aimed at explaining what the installation script does, and it can be useful for those that want to install the interface on an already running server, or on a different distribution, or for any other reason.
 
 Download the code from this repository; the web-based interface itself is only including 4 files. Move the 4 files in the `/var/www/html` directory (or similar place in other distributions). 
