@@ -12,11 +12,13 @@ Jamulus should be installed according to official [instructions](https://jamulus
 
 The rest of this README refers to Ubuntu 20.04, but it should be easily adaptable to other Linux platforms.
 
+## Update from previous version
+
+If you already had the Remote + experimental automix installed, just replace the html pages. 
+
 ## Quick install
 
 **If you have a personalised install of Jamulus already running, do not follow these instructions, but read the details at the bottom to adapt the system to your local needs.**
-
-The below commands are also summarized in https://github.com/vdellamea/jamulus-server-remote/blob/main/QUICK-INSTALL.md for super-quick installation **on a fresh installation** on Ubuntu 20.04.
 
 Be sure to have zip:
 
