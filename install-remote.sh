@@ -1,4 +1,4 @@
-echo -n "JAMULUS RECORDING REMOTE INSTALLATION v0.5. Are you sure?  (y/n)? "
+echo -n "JAMULUS RECORDING REMOTE INSTALLATION v0.6. Are you sure?  (y/n)? "
 read answer
 if [ "$answer" != "${answer#[Yy]}" ] ;then
 
