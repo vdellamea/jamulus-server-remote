@@ -148,8 +148,7 @@ $AUDIONORMALIZATION=false; //Experimental - not yet good
 
  *No need to check the rest if you installed from scratch as described above.*
  
-# Details for adapting to an already installed service
-# INSTRUCTIONS ARE NOT YET fully UPDATED FOR THIS VERSION! BE CAREFUL.
+# Details for adapting to different platforms
 
 The following description is aimed at explaining what the installation script does, and it can be useful for those that want to install the interface on an already running server, or on a different distribution, or for any other reason.
 
