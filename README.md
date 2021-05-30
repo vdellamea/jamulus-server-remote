@@ -153,51 +153,100 @@ $AUDIONORMALIZATION=false; //Experimental - not yet good
 
 The following description is aimed at explaining what the installation script does, and it can be useful for those that want to install the interface on an already running server, or on a different distribution, or for any other reason.
 
-Download the code from this repository; the web-based interface itself is only including 4 files. Move the 4 files in the `/var/www/html` directory (or similar place in other distributions). 
+## Installation
+This is a motivated walk through the install-remoth script. Download the code from this repository. 
 
-### The commands
+Install dependencies: this should be adapted to the package manager of your distribution (yum, dnf). Some other software might be missing, like zip/unzip, some might be already installed (e.g., acl).  
+```
+sudo apt-get install apache2 php libapache2-mod-php ffmpeg acl
+```
+E.g., for Fedora:
+```
+sudo dnf install httpd php ffmpeg zip
+```
 
-Commands may need personalization if you want to adapt the scripts to an already existing installation. Here the current commands you can find in `worker.php`:
+
+Prepare web document root: in principle this should be sufficient for most distributions, however you might want to put the PHP files in some subdirectory. 
+```
+  sudo rm /var/www/html/index.html
+  sudo cp *.php /var/www/html/
+```
+Ownership of the files should be given to the user running apache. E.g., in Fedora it is not `www-data` but `apache`. It should be changed wherever www-data appears.
+```
+  sudo chown -R www-data /var/www/html/
+  sudo chgrp -R www-data /var/www/html/
+```
+
+If you followed the original instructions, the jamulus user is not created with a home dir. The following aims at setting it.
+```
+  sudo usermod -d /home/jamulus jamulus
+  sudo mkhomedir_helper jamulus
+```
+
+Then you need recording, mix and consolidate directories. These instruction should be good on any platform, except for the chgrp to www-data that might need adaptation.
+```
+# recording songs directory 
+  sudo mkdir /home/jamulus/recording
+  sudo chgrp www-data /home/jamulus/recording/
+  sudo chmod g+rwx /home/jamulus/recording/
+  sudo chmod g+s /home/jamulus/recording/
+  sudo setfacl -d -m g::rwx /home/jamulus/recording/
+# mixed songs directory  
+  sudo mkdir /home/jamulus/mix
+  sudo chgrp www-data /home/jamulus/mix/
+  sudo chmod g+rwx /home/jamulus/mix/
+  sudo chmod g+s /home/jamulus/mix/
+  sudo setfacl -d -m g::rwx /home/jamulus/mix/
+# consolidated tracks directory
+  sudo mkdir /home/jamulus/consolidated
+  sudo chgrp www-data /home/jamulus/consolidated/
+  sudo chmod g+rwx /home/jamulus/consolidated/
+  sudo chmod g+s /home/jamulus/consolidated/
+  sudo setfacl -d -m g::rwx /home/jamulus/consolidated/
+```
+
+Finally, you have to add sudo capabilities to Apache for 2 commands. This is the tricky part. You have to give privileges to Apache for running commands as `sudo` by adding a file in `sudoers.d`. However, any mistake in doing this may result in loosing sudo privileges, thus use exclusively the `sudo visudo` command if you have to modify something, because it does syntax checks. 
+The jamulus-sudoers.txt file should be adapted both regarding the user to which privileges are given, and the name of the service to be called (jamulus-headless vs jamulus or whatever you called it). It is highly suggested to use visudo to edit it, so copy it in place, then `sudo visudo /etc/sudoers.d/jamulus` . Be very careful. `visudo` does syntax checking and avoids mistakes, but if you use a different editor and make a mistake, all sudo privileges become locked. If visudo starts with the `vi` editor and you are not a nerd, try `sudo EDITOR=/bin/nano visudo /etc/sudoers.d/jamulus`.
+
+This might not be sufficient due to extra layers of protection in the system (SELinux, default on Fedora and Centos). You might need to [disable it](https://www.cyberciti.biz/faq/disable-selinux-on-centos-7-rhel-7-fedora-linux/) or do further work to enable Apache to call systemctl, but I cannot help on this.
+
+```
+  sudo cp jamulus-sudoers.txt /etc/sudoers.d/jamulus
+```
+The content is 
+```
+www-data ALL=(ALL)NOPASSWD: /bin/systemctl kill -s SIGUSR1 jamulus
+www-data ALL=(ALL)NOPASSWD: /bin/systemctl kill -s SIGUSR2 jamulus
+```
+
+Shell commands used by the Remote may need personalization if you want to adapt the scripts to an already existing installation (e.g., service name, the same as in the sudoers file. Here the current commands you can find in `worker.php` (two for sure that may need modifications are toggle and newrec, for the service name):
 ```php
- "toggle" => "sudo /bin/systemctl kill -s SIGUSR2 jamulus ",
- "newrec" => "sudo /bin/systemctl kill -s SIGUSR1 jamulus ",
- "compress" => "cd $RECORDINGS ; rm session.zip; zip -r session.zip Jam* ",
- "compressday" => "cd $RECORDINGS ; rm $today.zip; zip -r $today.zip Jam-$today-* ", 
+ "toggle" => "sudo /bin/systemctl kill -s SIGUSR2 jamulus-headless ",
+ "newrec" => "sudo /bin/systemctl kill -s SIGUSR1 jamulus-headless ",
+ "compress" => "cd $RECORDINGS ; rm orig-$today.zip; zip -r orig-$today.zip Jam* ",
  "listrec" => "du -sh $RECORDINGS/Jam* ",
  "freespace" => "df -h --output=avail $RECORDINGS ",
  "delwav" => "rm -fr $RECORDINGS/Jam* ",
  "delzip" => "rm -fr $RECORDINGS/*.zip ",
+ "ffmpeg" => "ffmpeg -loglevel quiet ",
+ "checkstereo" => "ffmpeg -i ", 
+ "maxvolume" =>"ffmpeg -i ",
+ "ffprobe" => "ffprobe  -show_entries stream=duration -of compact=p=0:nk=1 -v 0 ",	
+ "zipmix" => "rm $RECORDINGS/mix-$today.zip; cd $MIX; zip $RECORDINGS/mix-$today.zip *.mp3 ; rm $MIX/*.mp3 ",
+ "cleancons" => "rm $RECORDINGS/consolidated-$today.zip",	
+ "zipcons1" => "cd $CONSOLIDATED; zip -r $RECORDINGS/consolidated-$today.zip Jam* ; rm -fr Jam* ",
+ "cleantmp" => "rm -fr /var/tmp/Jam-* ",
 ```
 
-### The service 
-The service file now allows for writing in the home directory of the user, which is created when creating the user. However, this is not mandatory: if you installed everything according to official instructions, the jamulus user likely will not have a home directory. 
+The service file now allows for writing in the home directory of the user, which is created when creating the user. However, this is not mandatory: if you installed everything according to official instructions, the jamulus user likely will not have a home directory. If you want to put the recordings elsewhere, check that the privileges set in the service file are adequate (and sorry, I am not able to help on this). 
+These are the extras vs. the standard install:
+```
+Group=www-data
+UMask=0002
+ProtectHome=false
+```
 
-### Extending privileges
-This is the tricky part. You have to give privileges to Apache for running commands as `sudo` by modifying the `sudoers` file or, better, adding a file in `sudoers.d`. However, any mistake in doing this may result in loosing sudo privileges, thus use exclusively the `sudo visudo` command if you have to modify something, because it does syntax checks. E.g.:
 
-`sudo visudo -f /etc/sudoers.d/jamulus`
 
-and then add lines like these for each command you want to give sudo privileges to www-data:
 
-`www-data ALL=(ALL)NOPASSWD: /bin/systemctl kill -s SIGUSR1 jamulus`
-
-`www-data ALL=(ALL)NOPASSWD: /bin/systemctl kill -s SIGUSR2 jamulus`
-
-Followed but one or two newline.
-
-Be very careful. `visudo` does syntax checking and avoids mistakes, but if you use a different editor and make a mistake, all sudo privileges become locked.
-
-Since files are written by the user `jamulus`, and then could not be deleted by `www-data` (the user under which Apache+PHP does the job), set gid to give www-data as group to any subfolder/file: 
-
-`mkdir /home/jamulus/recording`
-
-`sudo chown www-data /home/jamulus/recording/`
-
-`sudo chgrp www-data /home/jamulus/recording/`
-
-`sudo chmod g+s /home/jamulus/recording/`
-
-`sudo setfacl -d -m g::rwx /home/jamulus/recording/`
-
-In the above commands, you may substitute the `/home/jamulus/recording/` directory with your own. Remember to change it also in `config.php` and in `jamulus.service` (however, the latter might not be needed if you already set it up for your installation). 
 
